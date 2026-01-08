@@ -3,6 +3,7 @@ import csv
 import os
 import praw
 from tqdm import tqdm
+from dotenv import load_dotenv
 from datetime import datetime, timezone, timedelta
 
 def utc_iso(ts_utc: float) -> str:
@@ -26,6 +27,8 @@ def calculate_votes(score: int, ups: int | None) -> tuple[int, int]:
 
 
 def build_reddit_client() -> praw.Reddit:
+    load_dotenv()
+
     client_id = os.environ.get("REDDIT_CLIENT_ID")
     client_secret = os.environ.get("REDDIT_CLIENT_SECRET")
     user_agent = os.environ.get("REDDIT_USER_AGENT", "amc-disinformation-analysis/1.0")
@@ -68,7 +71,7 @@ def download():
     ap.add_argument("--subreddit", required=True, help="e.g. 'python' (no r/ prefix)")
     ap.add_argument("--n-posts", type=int, required=True, help="Number of POSTS to include (after filtering)")
     ap.add_argument("--sort", default="new", help="new|hot|top|rising|controversial (default: new)")
-    ap.add_argument("--output", default=f"../data/data_dump{datetime.now().strftime("%Y%m%d%H%M")}.csv", help="Output CSV path")
+    ap.add_argument("--output", default=f"data/data_dump{datetime.now().strftime("%Y%m%d%H%M")}.csv", help="Output CSV path")
 
     ap.add_argument(
         "--replace-more-limit",
