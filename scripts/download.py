@@ -71,7 +71,7 @@ def download():
     ap.add_argument("--subreddit", required=True, help="e.g. 'python' (no r/ prefix)")
     ap.add_argument("--n-posts", type=int, required=True, help="Number of POSTS to include (after filtering)")
     ap.add_argument("--sort", default="new", help="new|hot|top|rising|controversial (default: new)")
-    ap.add_argument("--output", default=f"data/data_dump{datetime.now().strftime("%Y%m%d%H%M")}.csv", help="Output CSV path")
+    ap.add_argument("--output", default=f"../data/data_dump{datetime.now().strftime("%Y%m%d%H%M")}.csv", help="Output CSV path")
 
     ap.add_argument(
         "--replace-more-limit",
