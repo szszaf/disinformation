@@ -3,6 +3,7 @@ import csv
 import os
 import praw
 from tqdm import tqdm
+from dotenv import load_dotenv
 from datetime import datetime, timezone, timedelta
 
 def utc_iso(ts_utc: float) -> str:
@@ -26,6 +27,8 @@ def calculate_votes(score: int, ups: int | None) -> tuple[int, int]:
 
 
 def build_reddit_client() -> praw.Reddit:
+    load_dotenv()
+
     client_id = os.environ.get("REDDIT_CLIENT_ID")
     client_secret = os.environ.get("REDDIT_CLIENT_SECRET")
     user_agent = os.environ.get("REDDIT_USER_AGENT", "amc-disinformation-analysis/1.0")
